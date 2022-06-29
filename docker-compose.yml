@@ -1,0 +1,63 @@
+services:
+
+  web:
+    image: nginx:alpine
+    container_name: nginx
+    working_dir: /etc/nginx
+    volumes:
+      - ./app:/app
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./app/log/nginx:/var/log/nginx/
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    depends_on:
+      - php
+      - db
+
+  php:
+    build:
+      context: ./config/php
+      dockerfile: Dockerfile
+    container_name: php
+    working_dir: /app
+    volumes:
+      - ./app:/app
+      - ./config/php/php-ini-overrides.ini:/usr/local/etc/php/conf.d/00-php.ini
+      - ./bin/sendmail:/usr/local/bin/sendmail
+    restart: always
+    environment:
+      PHP_IDE_CONFIG: serverName=localhost
+
+  db:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./app/db:/var/lib/mysql
+      - ./app/log/mysql:/var/log/mysql/
+      - ./config/mysql/conf.d:/etc/mysql/conf.d
+    ports:
+      - "3306:3306"
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      PMA_HOST: db
+
+  npm:
+    image: node:latest
+    container_name: npm
+    volumes:
+      - ./app/www:/app/www/public
+    working_dir: /app/www/public
+    entrypoint: ['npm', '--no-bin-links']

@@ -1,0 +1,13 @@
+{
+    "name": "dementiev-net/dev_php_laravel",
+    "version": "0.1.0",
+    "private": true,
+    "description": "Окружение для разработки Laravel (Nginx, PHP, MySQL)",
+    "author": "Dmitry Dementiev <info@dementiev.net>",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dementiev-net/dev_php_laravel.git"
+    },
+    "license": "ISC",
+    "require": {}
+}
