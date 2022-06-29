@@ -21,7 +21,7 @@ services:
       context: ./config/php
       dockerfile: Dockerfile
     container_name: php
-    working_dir: /app
+    working_dir: /app/www
     volumes:
       - ./app:/app
       - ./config/php/php-ini-overrides.ini:/usr/local/etc/php/conf.d/00-php.ini
