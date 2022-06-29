@@ -5,7 +5,7 @@
 ```console
 docker-compose up --build -d
 
-(?) docker-compose exec php composer init
+docker-compose exec php composer install
 docker-compose exec php composer global require laravel/installer
 docker-compose exec php composer create-project laravel/laravel www
 ```
