@@ -21,6 +21,7 @@ services:
       context: ./config/php
       dockerfile: Dockerfile
     container_name: php
+    image: php:7.4
     working_dir: /app/www
     volumes:
       - ./app:/app
@@ -44,7 +45,7 @@ services:
     restart: always
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin
     container_name: phpmyadmin
     environment:
       - PMA_ARBITRARY=1
