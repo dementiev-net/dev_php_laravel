@@ -1,10 +1,29 @@
 # Окружение для разработки Laravel (Nginx, PHP, MySQL)
 
-### Установка
+### Docker
 
 ```console
-docker-compose up --build -d
+// загрузка из HUB
+docker images
+docker login
 
+docker pull dementievnet/phpmyadmin:latest
+docker pull dementievnet/mysql:latest
+docker pull dementievnet/nginx:latest
+docker pull dementievnet/php:latest
+
+// управление
+docker run
+docker-compose down
+
+// пересборка из 'Dockerfile'
+docker-compose up --build -d
+docker push phpdementievnet/php:latest
+
+// удаление неиспользованных контейнеров
+docker system prune
+
+// laravel
 docker-compose exec php composer install
 docker-compose exec php composer global require laravel/installer
 docker-compose exec php composer create-project laravel/laravel www

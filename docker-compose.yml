@@ -1,7 +1,7 @@
 services:
 
   web:
-    image: nginx:alpine
+    image: dementievnet/nginx:latest
     container_name: nginx
     working_dir: /etc/nginx
     volumes:
@@ -20,8 +20,8 @@ services:
     build:
       context: ./config/php
       dockerfile: Dockerfile
+    image: dementievnet/php:latest
     container_name: php
-    image: php:7.4
     working_dir: /app/www
     volumes:
       - ./app:/app
@@ -32,7 +32,7 @@ services:
       PHP_IDE_CONFIG: serverName=localhost
 
   db:
-    image: mysql:5.7
+    image: dementievnet/mysql:latest
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -45,7 +45,7 @@ services:
     restart: always
 
   phpmyadmin:
-    image: phpmyadmin
+    image: dementievnet/phpmyadmin:latest
     container_name: phpmyadmin
     environment:
       - PMA_ARBITRARY=1
@@ -54,11 +54,3 @@ services:
       - 8081:80
     environment:
       PMA_HOST: db
-
-  npm:
-    image: node:latest
-    container_name: npm
-    volumes:
-      - ./app/www:/app/www/public
-    working_dir: /app/www/public
-    entrypoint: ['npm', '--no-bin-links']
